@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DailyMath — one puzzle a day, same for everyone</title>
+<meta name="description" content="Find the hidden calculation that equals the day's target. A new math puzzle every day, the same for the whole planet.">
+<style>
+  :root {
+    --green: #6aaa64;
+    --yellow: #c9b458;
+    --gray: #787c7e;
+    --bg: #ffffff;
+    --fg: #1a1a1b;
+    --muted: #6e6e70;
+    --border: #d3d6da;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --green: #538d4e;
+      --yellow: #b59f3b;
+      --gray: #3a3a3c;
+      --bg: #121213;
+      --fg: #f8f8f8;
+      --muted: #9a9a9c;
+      --border: #3a3a3c;
+    }
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 48px 20px 32px;
+    text-align: center;
+  }
+  h1 { font-size: 2.6rem; font-weight: 900; letter-spacing: -0.5px; }
+  .tagline { color: var(--muted); font-size: 1.15rem; margin-top: 10px; max-width: 30rem; }
+  .target { margin-top: 34px; font-size: 1.3rem; font-weight: 800; }
+  .grid { margin-top: 14px; display: grid; gap: 5px; }
+  .row { display: flex; gap: 5px; justify-content: center; }
+  .tile {
+    width: 46px; height: 46px; display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 1.3rem; border-radius: 5px; color: #fff;
+    border: 2px solid transparent;
+  }
+  .g { background: var(--green); }
+  .y { background: var(--yellow); }
+  .x { background: var(--gray); }
+  .how {
+    margin-top: 36px; max-width: 26rem; color: var(--muted); font-size: 0.98rem; line-height: 1.55;
+  }
+  .stores { margin-top: 38px; display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+  .store {
+    border: 1.5px solid var(--border); border-radius: 10px; padding: 12px 22px;
+    font-weight: 700; font-size: 0.95rem; color: var(--fg); text-decoration: none; opacity: 0.75;
+  }
+  .store small { display: block; font-weight: 400; font-size: 0.72rem; color: var(--muted); }
+  footer { margin-top: auto; padding-top: 48px; color: var(--muted); font-size: 0.8rem; }
+  footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+  <h1>DailyMath</h1>
+  <p class="tagline" id="tagline">One hidden calculation a day. Six tries. The same puzzle for the whole planet.</p>
+
+  <div class="target">Target: 57</div>
+  <div class="grid" aria-hidden="true">
+    <div class="row">
+      <div class="tile x">1</div><div class="tile y">2</div><div class="tile x">+</div>
+      <div class="tile g">3</div><div class="tile x">4</div><div class="tile x">5</div>
+    </div>
+    <div class="row">
+      <div class="tile y">9</div><div class="tile g">×</div><div class="tile y">8</div>
+      <div class="tile g">−</div><div class="tile g">1</div><div class="tile g">5</div>
+    </div>
+    <div class="row">
+      <div class="tile g">8</div><div class="tile g">×</div><div class="tile g">9</div>
+      <div class="tile g">−</div><div class="tile g">1</div><div class="tile g">5</div>
+    </div>
+  </div>
+
+  <p class="how" id="how">
+    Every day there is one number to reach and one hidden 6-character calculation that gets there.
+    Guess it in 6 tries: green is the right symbol in the right spot, yellow is in the calculation
+    but elsewhere. Share your grid — never the answer.
+  </p>
+
+  <div class="stores">
+    <span class="store">Google Play<small>coming soon</small></span>
+    <span class="store">App Store<small>coming soon</small></span>
+  </div>
+
+  <footer>
+    <a href="/api/meta">API</a> · © 2026 DailyMath
+  </footer>
+
+<script>
+  const t = {
+    es: ["Una cuenta oculta por día. Seis intentos. El mismo puzzle para todo el planeta.",
+         "Cada día hay un número objetivo y una cuenta oculta de 6 caracteres que lo alcanza. Adivinala en 6 intentos: verde es símbolo correcto en el lugar correcto, amarillo está en la cuenta pero en otro lugar. Compartí tu grilla — nunca la respuesta."],
+    pt: ["Uma conta escondida por dia. Seis tentativas. O mesmo puzzle para o planeta inteiro.",
+         "Todo dia há um número alvo e uma conta escondida de 6 caracteres que chega lá. Adivinhe em 6 tentativas: verde é o símbolo certo no lugar certo, amarelo está na conta mas em outro lugar. Compartilhe sua grade — nunca a resposta."],
+    fr: ["Un calcul caché par jour. Six essais. Le même puzzle pour toute la planète.",
+         "Chaque jour, un nombre cible et un calcul caché de 6 caractères qui l'atteint. Devine-le en 6 essais : vert = bon symbole à la bonne place, jaune = dans le calcul mais ailleurs. Partage ta grille — jamais la réponse."],
+    de: ["Eine versteckte Rechnung pro Tag. Sechs Versuche. Dasselbe Rätsel für den ganzen Planeten.",
+         "Jeden Tag gibt es eine Zielzahl und eine versteckte Rechnung aus 6 Zeichen. Errate sie in 6 Versuchen: Grün ist das richtige Symbol am richtigen Platz, Gelb steckt in der Rechnung, aber woanders. Teile dein Gitter — nie die Lösung."],
+    it: ["Un calcolo nascosto al giorno. Sei tentativi. Lo stesso puzzle per tutto il pianeta.",
+         "Ogni giorno c'è un numero obiettivo e un calcolo nascosto di 6 caratteri che lo raggiunge. Indovinalo in 6 tentativi: verde è il simbolo giusto al posto giusto, giallo è nel calcolo ma altrove. Condividi la tua griglia — mai la risposta."],
+    ru: ["Одно скрытое вычисление в день. Шесть попыток. Одна головоломка на всю планету.",
+         "Каждый день есть целевое число и скрытое вычисление из 6 символов. Угадайте его за 6 попыток: зелёный — верный символ на верном месте, жёлтый — есть в вычислении, но в другом месте. Делитесь сеткой — но не ответом."],
+    zh: ["每天一道隐藏算式。六次机会。全球同一道谜题。",
+         "每天都有一个目标数字和一条能得到它的 6 字符隐藏算式。在 6 次机会内猜出它：绿色表示符号和位置都对，黄色表示在算式里但位置不对。分享你的方格——但永远不剧透答案。"]
+  };
+  const lang = (navigator.language || "en").slice(0, 2);
+  if (t[lang]) {
+    document.getElementById("tagline").textContent = t[lang][0];
+    document.getElementById("how").textContent = t[lang][1];
+    document.documentElement.lang = lang;
+  }
+</script>
+</body>
+</html>

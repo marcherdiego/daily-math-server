@@ -1,0 +1,10 @@
+{
+  "name": "daily-math-server",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Landing page + spoiler-free puzzle API for the DailyMath app",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  }
+}
