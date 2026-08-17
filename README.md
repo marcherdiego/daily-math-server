@@ -5,6 +5,10 @@ Landing page + spoiler-free API for the DailyMath app. Deployed on Vercel; no de
 ## Endpoints
 
 - `GET /` — landing page (auto-localizes tagline to 8 languages).
+- `GET /privacy` — privacy policy. **Linked from inside the app** (Settings → Legal)
+  and required by both stores; keep it in sync with `store/privacy-policy.md` in
+  the app repo.
+- `GET /terms` — terms of service; same deal, mirrors `store/terms.md`.
 - `GET /api/puzzle/today` — today's puzzle metadata (UTC date by default; pass `?date=YYYY-MM-DD` for the client's local date). **Never includes the solution.**
 - `GET /api/puzzle/{day}` — same, by day index (0-based).
 - `GET /api/fact/today?lang=es` — math fact of the day; `lang` one of es en pt zh ru it fr de.
